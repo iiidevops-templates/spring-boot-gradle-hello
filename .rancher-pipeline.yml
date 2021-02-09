@@ -32,7 +32,7 @@ stages:
           git.commitID: "${CICD_GIT_COMMIT}"
           # web參數設定
           checkmarx.enabled: true
-          checkmarx.runnerVersion: 0.2.0
+          checkmarx.runnerVersion: 2.0.0
     when:
       branch:
         include:
