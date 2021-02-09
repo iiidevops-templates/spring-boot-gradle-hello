@@ -4,7 +4,7 @@ stages:
     - publishImageConfig:
         dockerfilePath: ./Dockerfile
         buildContext: .
-        tag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_REPO_NAME}:${CICD_GIT_BRANCH}-${CICD_GIT_COMMIT}
+        tag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_BRANCH}:latest
         pushRemote: true
         registry: harbor-demo.iiidevops.org
       env:
@@ -38,6 +38,7 @@ stages:
     when:
       branch:
         include:
+        - master
         - checkmarx
 
   # 部屬使用者應用(app)
@@ -45,12 +46,11 @@ stages:
     steps:
     - applyAppConfig:
         catalogTemplate: cattle-global-data:iii-dev-charts3-web
-        version: 0.2.1
+        version: 0.3.0
         name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-web
         targetNamespace: ${CICD_GIT_REPO_NAME}
         answers:
           pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
-          xip.ip: "10.20.0.77"
           harbor.host: "harbor-demo.iiidevops.org"
           # 基礎pipeline參數
           git.host: "gitlab-demo.iiidevops.org"
@@ -58,8 +58,15 @@ stages:
           git.branch: ${CICD_GIT_BRANCH}
           git.commitID: ${CICD_GIT_COMMIT}
           git.repoName: ${CICD_GIT_REPO_NAME}
-          # web參數設定
-          web.type: spring
-          # 10.50.1.63:5443/app/${CICD_GIT_REPO_NAME}-web
-          web.image: ${CICD_GIT_REPO_NAME}/${CICD_GIT_REPO_NAME}
-          web.tag: ${CICD_GIT_BRANCH}-${CICD_GIT_COMMIT}
+          web.port: 8080
+          web.imageTag: ${CICD_GIT_REPO_NAME}/${CICD_GIT_BRANCH}:latest
+          newman.enabled: true
+          newman.runnerVersion: 2.0.1
+          webinspect.enabled: true
+          webinspect.runnerVersion: 1.1.0
+          ingress.externalHost: ingress-demo.iiidevops.org
+      when:
+        branch:
+          include:
+            - master
+            - develop
