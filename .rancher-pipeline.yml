@@ -47,7 +47,7 @@ stages:
     - applyAppConfig:
         catalogTemplate: cattle-global-data:iii-dev-charts3-web
         version: 0.3.0
-        name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-web
+        name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
         targetNamespace: ${CICD_GIT_REPO_NAME}
         answers:
           pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
