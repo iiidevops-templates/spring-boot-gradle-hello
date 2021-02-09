@@ -20,21 +20,19 @@ stages:
     - applyAppConfig:
         catalogTemplate: cattle-global-data:iii-dev-charts3-source-scan
         version: 0.1.0
-        name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-source-scan
+        name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-scan
         targetNamespace: ${CICD_GIT_REPO_NAME}
         answers:
           pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
-          xip.ip: "10.20.0.77"
           harbor.host: "harbor-demo.iiidevops.org"
           # 基礎pipeline參數
-          git.host: "gitlab-demo.iiidevops.org"
           git.url: ${CICD_GIT_URL}
           git.repoName: ${CICD_GIT_REPO_NAME}
           git.branch: ${CICD_GIT_BRANCH}
           git.commitID: "${CICD_GIT_COMMIT}"
           # web參數設定
           checkmarx.enabled: true
-          checkmarx.runnerVersion: "latest"
+          checkmarx.runnerVersion: 0.2.0
     when:
       branch:
         include:
@@ -47,7 +45,7 @@ stages:
     - applyAppConfig:
         catalogTemplate: cattle-global-data:iii-dev-charts3-web
         version: 0.3.0
-        name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-web
+        name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-serv
         targetNamespace: ${CICD_GIT_REPO_NAME}
         answers:
           pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
