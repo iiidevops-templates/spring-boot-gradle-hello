@@ -29,8 +29,6 @@
 						"{{test_origin}}"
 					],
 					"path": [
-						"todos",
-						"list"
 					]
 				}
 			},
