@@ -25,7 +25,7 @@ stages:
       shellScript:
         ls && cd app && chmod -R 777 . && ./gradlew 
         -Dsonar.host.url=http://sonarqube-server-service.default.svc.cluster.local:9000
-        -Dsonar.projectName=${CICD_GIT_REPO_NAME}
+        -Dsonar.projectKey=${CICD_GIT_REPO_NAME}
         -Dsonar.projectVersion=${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT} sonarqube
   when:
     branch:
