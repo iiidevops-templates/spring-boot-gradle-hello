@@ -1,6 +1,6 @@
 {
-  "name": "Spring Boot Gradle project - Hello World",
-  "description": "Gradle jdk8 / Spring Boot 2.3.3 / Tomcat jdk11 <a class='el-link el-link--primary' href='https://github.com/iiidevops-templates/java-spring-boot-app-gradle/blob/master/README.md' target='_blank'>Hello world 範本說明</a>",
+  "name": "SpringBoot Gradle project - Hello World",
+  "description": "Gradle jdk8 / SpringBoot 2.3.3 / Tomcat jdk11 <a class='el-link el-link--primary' href='https://github.com/iiidevops-templates/java-spring-boot-app-gradle/blob/master/README.md' target='_blank'>Hello world 範本說明</a>",
   "arguments": [
   ]
 }
