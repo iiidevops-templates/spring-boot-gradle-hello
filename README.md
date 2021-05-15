@@ -1,4 +1,4 @@
-# 簡易Hello world gradle project
+# Java Spring Boot Gradle Project - Hello 
 
 ## 如何增加Sonarqube掃描(用預設的QualiyGate)
 在`app/build.gradle`的檔案內plugins新增`id "org.sonarqube" version "3.1.1"`後pipeline即可運行Sonarqube掃描   
