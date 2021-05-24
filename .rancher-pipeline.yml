@@ -18,7 +18,7 @@ stages:
       include:
       - master
       - develop
-- name: Test--Sonarqube source code scan
+- name: Test--Sonarqube for Java(Gradle)
   steps:
   - runScriptConfig:
       image: library/gradle:jdk8
