@@ -1,7 +1,24 @@
 # Java Spring Boot Gradle Project - Hello 
+## 確認您專案的 gradle 與 tomcat 的 jdk 版本
+1. 範本裡提供的 gradle 是 jdk8 的版本，tomcat是 jdk11的版本
+2. 請確認您的版本後，再請更新範本專案內的 Dockerfile 檔案。
 
 ## 如何增加Sonarqube掃描(用預設的QualiyGate)
-在`app/build.gradle`的檔案內plugins新增`id "org.sonarqube" version "3.1.1"`後pipeline即可運行Sonarqube掃描   
+在`app/build.gradle`的檔案內plugins新增`id "org.sonarqube" version "3.1.1"`後pipeline即可運行Sonarqube掃描
+1. 確認您專案的 gradle 版本，並將它更新至專案的 Dockerfile
+2. 若欲使用SonarQube，則請將下列文字新增至 build.gradle 的檔案裡。
+```
+plugins {
+	id 'org.springframework.boot' version '2.3.3.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+	id "org.sonarqube" version "3.1.1"
+}
+``` 
+2.1 填入位置可參考下列圖示所示
+
+![](https://i.imgur.com/FZL7uD3.png)
+
 若要設定其他額外的細節也可寫在`app/build.gradle`，例如排除特定資料夾(與程式碼無關的)、指定的QualityGate、Rule等等  
 相關可用額外參數說明可參考[sonarscanner-for-gradle](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-gradle/)
 
