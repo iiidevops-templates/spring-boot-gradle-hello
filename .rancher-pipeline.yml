@@ -13,6 +13,7 @@ stages:
       include:
       - master
       - develop
+
 - name: Test--Checkmarx source code scan
   iiidevops: checkmarx
   steps:
@@ -32,6 +33,7 @@ stages:
       include:
       - master
       - develop
+
 - name: Deploy--Set Web environment variables
   iiidevops: deployed-environments
   steps:
@@ -55,6 +57,7 @@ stages:
     branch:
       include:
       - master
+
 - name: Build--Build and push docker image
   iiidevops: deployed-environments
   steps:
@@ -74,6 +77,7 @@ stages:
     branch:
       include:
       - master
+
 - name: Deploy--Web
   iiidevops: deployed-environments
   steps:
@@ -96,6 +100,7 @@ stages:
     branch:
       include:
       - master
+
 - name: Deploy--Wait Web deployment
   iiidevops: deployed-environments
   steps:
@@ -118,6 +123,7 @@ stages:
     branch:
       include:
       - master
+
 - name: Test--ZAP
   iiidevops: zap
   steps:
@@ -138,6 +144,7 @@ stages:
     branch:
       include:
       - master
+
 - name: Test--WebInspect
   iiidevops: webinspect
   steps:
@@ -157,6 +164,7 @@ stages:
     branch:
       include:
       - master
+
 - name: Test--Postman
   iiidevops: postman
   steps:
@@ -177,6 +185,7 @@ stages:
     branch:
       include:
       - master
+
 - name: Test--SideeX
   iiidevops: sideex
   steps:
@@ -192,8 +201,9 @@ stages:
       catalogTemplate: cattle-global-data:iii-dev-charts3-test-sideex
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-sdx
       targetNamespace: ${CICD_GIT_REPO_NAME}
-      version: 0.2.0
+      version: 0.3.0
   when:
     branch:
       include:
       - master
+
