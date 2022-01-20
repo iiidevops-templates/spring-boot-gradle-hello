@@ -17,22 +17,40 @@ stages:
       include:
       - master
       - develop
-
+- name: get-sonar-token
+  iiidevops: get-token
+  steps:
+  - envFrom:
+    - sourceKey: API_TOKEN
+      sourceName: pipeline-api-key
+      targetKey: rancher_api_token
+    - sourceKey: rancher-url
+      sourceName: rancher
+      targetKey: rancher_url
+    runScriptConfig:
+      image: iiiorg/rancher-cli:v2.4.6
+      shellScript: rancher login ${rancher_url} -t ${rancher_api_token} --skip-verify
+        && export TOKEN=$(rancher kubectl get secret sonar-bot -n ${CICD_GIT_REPO_NAME} -o=go-template='{{index
+        .data "sonar-token"}}' | base64 -d) && echo $TOKEN > token.txt
+  when:
+    branch:
+      include:
+      - master
 - name: Test--SonarQube for Java(Gradle)
   iiidevops: sonarqube
   steps:
   - runScriptConfig:
-      image: library/gradle:jdk8
-      shellScript: ls && cd app && chmod -R 777 . && ./gradlew -Dsonar.host.url=http://sonarqube-server-service.default:9000
+      image: library/gradle:jdk11
+      shellScript: export SONAR_TOKEN=$(cat token.txt) && echo $SONAR_TOKEN && ls && cd app && chmod -R 777 . && ./gradlew -Dsonar.host.url=http://sonarqube-server-service.default:9000
         -Dsonar.projectKey=${CICD_GIT_REPO_NAME} -Dsonar.projectVersion=${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}
-        -Dsonar.log.level=DEBUG -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=600
-        sonarqube
+        -Dsonar.log.level=DEBUG -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=600 
+        -Dsonar.login=$SONAR_TOKEN
+        jacocoTestReport sonarqube
   when:
     branch:
       include:
       - master
       - develop
-
 - name: Test--Checkmarx source code scan
   iiidevops: checkmarx
   steps:
@@ -52,7 +70,6 @@ stages:
     branch:
       include:
       - skip-master
-
 - name: Deploy--Set Web environment variables
   iiidevops: deployed-environments
   steps:
@@ -76,8 +93,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
-
+      - master
 - name: Build--Build and push docker image
   iiidevops: deployed-environments
   steps:
@@ -96,8 +112,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
-
+      - master
 - name: Deploy--Web
   iiidevops: deployed-environments
   steps:
@@ -119,8 +134,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
-
+      - master
 - name: Deploy--Wait Web deployment
   iiidevops: deployed-environments
   steps:
@@ -142,8 +156,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
-
+      - master
 - name: Test--ZAP
   iiidevops: zap
   steps:
@@ -165,7 +178,6 @@ stages:
     branch:
       include:
       - skip-master
-
 - name: Test--WebInspect
   iiidevops: webinspect
   steps:
@@ -185,8 +197,7 @@ stages:
   when:
     branch:
       include:
-      - skip-master
-
+      - skip
 - name: Test--Postman
   iiidevops: postman
   steps:
@@ -208,7 +219,6 @@ stages:
     branch:
       include:
       - skip-master
-
 - name: Test--SideeX
   iiidevops: sideex
   steps:
@@ -230,4 +240,3 @@ stages:
     branch:
       include:
       - skip-master
-
