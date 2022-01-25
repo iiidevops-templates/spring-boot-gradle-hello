@@ -12,5 +12,5 @@ cd app && chmod -R 777 .
 ./gradlew -Dsonar.host.url=http://sonarqube-server-service.default:9000\
     -Dsonar.projectKey=${CICD_GIT_REPO_NAME} -Dsonar.projectName=${CICD_GIT_REPO_NAME}\
 	-Dsonar.projectVersion=${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}\
-    -Dsonar.log.level=DEBUG -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=600\ 
+    -Dsonar.log.level=DEBUG -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=600\
     -Dsonar.login=$SONAR_TOKEN jacocoTestReport sonarqube
