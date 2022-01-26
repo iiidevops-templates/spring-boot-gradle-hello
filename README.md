@@ -22,6 +22,21 @@ plugins {
 若要設定其他額外的細節也可寫在`app/build.gradle`，例如排除特定資料夾(與程式碼無關的)、指定的QualityGate、Rule等等  
 相關可用額外參數說明可參考[sonarscanner-for-gradle](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-gradle/)
 
+### 如何關閉Sonarqube UnitTest
+在`SonarScan`內修改特定段落內新增`-x test`即可跳過unit Test，以下為跳過unit Test範例，跳過unit Test後則不會出現覆蓋率
+```
+echo '========== SonarQube(Gradle) =========='
+cd app && chmod -R 777 .
+./gradlew -Dsonar.host.url=http://sonarqube-server-service.default:9000\
+    -Dsonar.projectKey=${CICD_GIT_REPO_NAME} -Dsonar.projectName=${CICD_GIT_REPO_NAME}\
+	-Dsonar.projectVersion=${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}\
+    -Dsonar.log.level=DEBUG -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=600\
+    -Dsonar.login=$SONAR_TOKEN -x test jacocoTestReport sonarqube
+```
+jacoco Coverage 參考說明
+https://dzone.com/articles/reporting-code-coverage-using-maven-and-jacoco-plu
+https://blog.miniasp.com/post/2021/08/11/Spring-Boot-Maven-JaCoCo-Test-Coverage-Report-in-VSCode
+
 ## 專案資料夾與檔案格式說明
 檔案可按照需求做修改，`postman_collection_local.json`是要快速部屬時進行Postman collection測試的的檔案，測試結果會自動產生`newman-report.xml`。`openapi_local.yaml`主要是透過owasp ZAP來進行安全掃描，測試報告會自動產生`owasp-report.md`，內包含詳細的掃描內容與建議。  
 
