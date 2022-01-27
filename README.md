@@ -14,7 +14,7 @@ plugins {
 	id 'java'
 	id "org.sonarqube" version "3.1.1"
 }
-``` 
+```
 2.1 填入位置可參考下列圖示所示
 
 ![](https://i.imgur.com/FZL7uD3.png)
@@ -43,7 +43,7 @@ https://blog.miniasp.com/post/2021/08/11/Spring-Boot-Maven-JaCoCo-Test-Coverage-
 | 型態 | 名稱 | 說明 | 路徑 |
 | --- | --- | --- | --- |
 | 資料夾 | app | 專案主要程式碼 | 根目錄 |
-| 檔案 | Dockerfile.local | (可調整)本地端部屬使用 | 根目錄 |
+| 檔案 | Dockerfile | (可調整)devops k8s環境部屬檔案 | 根目錄 |
 | 檔案 | docker-compose.yaml | (可調整)本地端快速部屬使用 | 根目錄 |
 | 檔案 | postman_collection_local.json | (可調整)本地端快速部屬使用(Postman collection) | 在app資料夾內 |
 | 檔案 | openapi_local.yaml | (可調整)本地端快速部屬使用(openAPI文件) | 在app資料夾內 | 
@@ -54,7 +54,6 @@ https://blog.miniasp.com/post/2021/08/11/Spring-Boot-Maven-JaCoCo-Test-Coverage-
 | 檔案 | pipeline_settings.json | :warning: (不可更動)devops系統測試所需檔案 | 在iiidevops資料夾內 |
 | 檔案 | postman_collection.json | (可調整)devops newman部屬測試檔案 | iiidevops/postman資料夾內 |
 | 檔案 | postman_environment.json | (可調整)devops newman部屬測試檔案 | iiidevops/postman資料夾內 |
-| 檔案 | Dockerfile | (可調整)devops k8s環境部屬檔案 | 根目錄 |
 
 ## iiidevops
 * 專案內`.rancher-pipeline.yml`請勿更動，產品系統設計上不支援pipeline修改
