@@ -1,7 +1,7 @@
 echo '========== SonarQube(Gradle) =========='
 cd app && chmod -R 777 .
 ./gradlew -Dsonar.host.url=http://sonarqube-server-service.default:9000\
-    -Dsonar.projectKey=${CICD_GIT_REPO_NAME} -Dsonar.projectName=${CICD_GIT_REPO_NAME}\
-	-Dsonar.projectVersion=${CICD_GIT_BRANCH}:${CICD_GIT_COMMIT}\
+    -Dsonar.projectKey=$PROJECT_NAME -Dsonar.projectName=$PROJECT_NAME\
+	-Dsonar.projectVersion=$GIT_BRANCH:$GIT_COMMIT_ID\
     -Dsonar.log.level=DEBUG -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=600\
     -Dsonar.login=$SONAR_LOGIN jacocoTestReport sonarqube
