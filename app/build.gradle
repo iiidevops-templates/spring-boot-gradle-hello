@@ -29,7 +29,7 @@ dependencies {
 sonarqube {
     properties {
         property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
-        property 'sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/reports/jacoco/jacoco.xml"
+        property 'sonar.coverage.jacoco.xmlReportPaths', "${project.buildDir}/reports/jacoco/jacoco.xml"
     }
 }
 
