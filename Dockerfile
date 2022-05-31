@@ -1,4 +1,4 @@
-FROM gradle:6.9.2-jdk8 as builder
+FROM gradle:7.4.1-jdk8 as builder
 COPY ./app /app
 WORKDIR /app
 RUN ls && gradle build
