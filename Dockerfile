@@ -1,5 +1,5 @@
 FROM gradle:jdk8 as builder
-COPY ./app /app
+COPY --chown=gradle:gradle ./app /app
 WORKDIR /app
 RUN ls && gradle build
 FROM dockerhub/library/tomcat:jdk11
