@@ -1,6 +1,7 @@
 FROM gradle:jdk8 as builder
 COPY ./app /app
 WORKDIR /app
+RUN which gradle
 RUN ls -al /usr/bin/gradle
 RUN echo $JAVA_HOME
 RUN ls && gradle build
