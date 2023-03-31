@@ -23,7 +23,7 @@ stages:
         git.url: ${CICD_GIT_URL}
         harbor.host: harbor-dev3.iiidevops.org
         pipeline.sequence: ${CICD_EXECUTION_SEQUENCE}
-		type: gradle
+        type: gradle
       catalogTemplate: cattle-global-data:iii-dev-charts3-scan-sonarqube
       name: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}-sq
       targetNamespace: ${CICD_GIT_REPO_NAME}
@@ -33,6 +33,7 @@ stages:
       include:
       - master
       - develop
+
 - name: Test--Checkmarx source code scan
   iiidevops: checkmarx
   steps:
